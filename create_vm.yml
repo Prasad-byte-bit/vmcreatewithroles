@@ -1,0 +1,12 @@
+---
+- name: Create VM using vCenter role
+  hosts: localhost
+  gather_facts: false
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  vars_files:
+    - /root/create_vm_role/vars/main.yml
+
+  roles:
+    - create_vm_role
+
