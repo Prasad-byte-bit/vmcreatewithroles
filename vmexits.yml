@@ -1,0 +1,40 @@
+---
+- name: Check if VM exists in vCenter
+  hosts: localhost
+  gather_facts: no
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.9
+    vcenter_hostname: "vc1.demo.netapp.com"
+    vcenter_username: "administrator@demo.local"
+    vcenter_password: "Netapp1!"
+    datacenter_name: "Datacenter1"
+    folder_name: "/Datacenter1/vm"
+    vm_name: "mkhgyg"
+
+  tasks:
+    - name: Try to get VM info
+      community.vmware.vmware_guest_info:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: no
+        name: "{{ vm_name }}"
+        datacenter: "{{ datacenter_name }}"
+        folder: "{{ folder_name }}"
+      register: vm_info
+      failed_when: false
+
+    - name: Check if VM info is present
+      set_fact:
+        vm_exists: "{{ 'instance' in vm_info }}"
+
+    - name: Say VM already exists
+      debug:
+        msg: "VM '{{ vm_name }}' already exists."
+      when: vm_exists
+
+    - name: Say VM does not exist and suggest manual creation
+      debug:
+        msg: "VM '{{ vm_name }}' not present. Please create the VM manually or trigger creation task."
+      when: not vm_exists
+
