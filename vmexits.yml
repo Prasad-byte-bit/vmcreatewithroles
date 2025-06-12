@@ -9,7 +9,7 @@
     vcenter_password: "Netapp1!"
     datacenter_name: "Datacenter1"
     folder_name: "/Datacenter1/vm"
-    vm_name: "mkhgyg"
+    vm_name: "rasadlvn"
 
   tasks:
     - name: Try to get VM info
