@@ -8,10 +8,16 @@
   vars_files:
     - /root/create_vm_role/vars/main.yml
   tasks:
-    - name: Install requests module at runtime
-      ansible.builtin.command: pip3 install requests
-      changed_when: false  # prevents showing this as "changed" in output
-      ignore_errors: true   # in case it's already installed or fails silently
+
+    - name: Ensure pip is available
+      command: python3 -m ensurepip --default-pip
+      ignore_errors: true
+      changed_when: false
+
+    - name: Install requests module
+      command: pip3 install requests
+      ignore_errors: true
+      changed_when: false
 
   roles:
     - create_vm_role
