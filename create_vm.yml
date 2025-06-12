@@ -7,18 +7,6 @@
     ansible_python_interpreter: /usr/bin/python3
   vars_files:
     - /root/create_vm_role/vars/main.yml
-  tasks:
-
-    - name: Ensure pip is available
-      command: python3 -m ensurepip --default-pip
-      ignore_errors: true
-      changed_when: false
-
-    - name: Install requests module
-      command: pip3 install requests
-      ignore_errors: true
-      changed_when: false
-
   roles:
     - create_vm_role
 
