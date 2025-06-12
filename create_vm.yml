@@ -8,5 +8,5 @@
     - /root/create_vm_role/vars/main.yml
 
   roles:
-    - create_vm_roleeee
+    - create_vm_role
 
